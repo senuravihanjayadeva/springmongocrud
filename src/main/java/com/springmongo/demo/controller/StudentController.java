@@ -51,4 +51,24 @@ public class StudentController {
         }
     }
 
+    //Get Single Student
+    @PutMapping("/students/{id}")
+    public ResponseEntity<?> updateStudentById(@PathVariable String id, @RequestBody StudentDTO studentDTO){
+
+        Optional<StudentDTO> student =  studentRepo.findById(id);
+        if(student.isPresent()){
+
+            StudentDTO updateStudentRepo = student.get();
+            updateStudentRepo.setName(studentDTO.getName());
+            updateStudentRepo.setAge(studentDTO.getAge());
+            updateStudentRepo.setGender(studentDTO.getGender());
+            updateStudentRepo.setUpdatedAt(new Date(System.currentTimeMillis()));
+            return new ResponseEntity<>(studentRepo.save(updateStudentRepo), HttpStatus.OK);
+
+        }else{
+            return new ResponseEntity<>("Student Update Error",HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }
