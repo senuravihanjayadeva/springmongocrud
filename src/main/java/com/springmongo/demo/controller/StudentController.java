@@ -17,6 +17,7 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepo;
 
+    //Get Single Student
     @GetMapping("/students/{id}")
     public ResponseEntity<?> getSingleStudent(@PathVariable String id){
 
