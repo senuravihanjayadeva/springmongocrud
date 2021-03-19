@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 public class StudentController {
 
@@ -70,5 +71,16 @@ public class StudentController {
         }
 
     }
+
+    @DeleteMapping("/students/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable String id){
+        try{
+            studentRepo.deleteById(id);
+            return new ResponseEntity<>("Success deleted with " + id,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
